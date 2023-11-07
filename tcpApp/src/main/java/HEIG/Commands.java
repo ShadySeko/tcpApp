@@ -15,6 +15,8 @@ import java.util.concurrent.Callable;
         description = "TODO")
 public class Commands implements Callable<Integer> {
 
+    private int server_id = (int) (Math.random() * 10000);
+
 
     @Option(names = {"-p", "-port"}, description = "Port to use for connexion", required = true)
     private int port = 1234; //default port
@@ -26,15 +28,18 @@ public class Commands implements Callable<Integer> {
     @Command(name = "server", mixinStandardHelpOptions = true, version = "server 1.0",
             description = "Starts the server.")
     public Integer server() throws Exception {
-
-        return null;
+        Server server = new Server(port, threads, server_id);
+        server.run();
+        server_id++;
+        return 0;
     }
 
     @Command(name = "client", mixinStandardHelpOptions = true, version = "client 1.0",
             description = "Starts the client.")
     public Integer client() throws Exception {
-
-        return null;
+        Client client = new Client("localhost", port);
+        client.run();
+        return 0;
     }
 
 
