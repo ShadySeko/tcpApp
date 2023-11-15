@@ -28,15 +28,17 @@ public class Server implements Runnable{
             System.out.println("[Server: " + SERVER_ID + "] : starting");
             System.out.println("[Server: " + SERVER_ID + "] : listening on port " + PORT);
 
-            // Infinite loop, limited by the number of threads available in the pool
+            TicTacToe game = new TicTacToe();
 
+            // Infinite loop, limited by the number of threads available in the pool
             while(activeThreads <= THREAD_POOL_SIZE){
                 Socket socket = serverSocket.accept();
                 System.out.println("Server : new client connected");
-                Thread clientThread = new Thread(new ClientHandler(socket));
+                Thread clientThread = new Thread(new ClientHandler(socket, game));
                 clientThread.start();
                 activeThreads++;
             }
+            //If we manage to get out of the loop, it means the thread pool is full or an exception occurred
             System.out.println("Server : thread pool is full, refusing new connections");
             throw new IllegalArgumentException("Server : thread pool is full, refusing new connections");
 

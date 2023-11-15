@@ -18,11 +18,11 @@ public class Commands implements Callable<Integer> {
     private int server_id = (int) (Math.random() * 10000);
 
 
-    @Option(names = {"-p", "-port"}, description = "Port to use for connexion", required = true)
+    @Option(names = {"-p"}, description = "Port to use for connexion", required = true)
     private int port = 1234; //default port
 
 
-    @Option(names = {"-t", "-threads"}, description = "Number of threads server-side", required = true)
+    @Option(names = {"-t"}, description = "Number of threads server-side", required = true)
     private int threads = 4; //default number of threads
 
     @Command(name = "server", mixinStandardHelpOptions = true, version = "server 1.0",
