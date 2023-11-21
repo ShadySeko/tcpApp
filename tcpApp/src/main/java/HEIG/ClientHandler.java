@@ -50,6 +50,7 @@ public class ClientHandler implements Runnable {
             out.write("Server : You are player " + game.getCurrentPlayer() + "!");
             out.newLine();
             out.write(EOT);
+            out.newLine();
             out.flush();
 
             String input;
@@ -78,16 +79,19 @@ public class ClientHandler implements Runnable {
                         out.newLine();
                         out.write("Server : HELP : display this help message");
                         out.newLine();
+                        out.flush();
                         break;
 
                     case "RESET":
                         game.reset();
                         out.write("Server : game reset");
+                        out.flush();
                         break;
 
                     default:
                         out.write("Server : invalid command, please try again.");
                         out.newLine();
+                        out.flush();
                         break;
                 }
             }

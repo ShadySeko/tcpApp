@@ -39,11 +39,12 @@ public class Client implements Runnable {
             String input = inp.readLine();
             System.out.println(input);
             String output;
+
             while(!(input = inp.readLine()).equals(EOT)){
                 System.out.println(input);
             }
 
-            System.out.println("Server waiting for input:");
+
             while(!(input = userInput.readLine()).equals(EOT)){
                 outp.write(input);
                 outp.newLine(); //Add a newline to the end of the message
@@ -56,8 +57,11 @@ public class Client implements Runnable {
                     e.printStackTrace();
                 }
 
-                String response = inp.readLine(); //Read the response from the server
-                System.out.println("Client : received response from server : " + "\n" + "> " + response);
+                System.out.println("Client : received response from server : " + "\n" + ">");
+                while(!(input = inp.readLine()).equals(EOT)){
+                    System.out.println(input);
+                }
+
             }
 
         } catch (Exception e) {
