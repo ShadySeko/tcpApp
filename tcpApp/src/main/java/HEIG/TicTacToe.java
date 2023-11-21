@@ -6,7 +6,7 @@ package HEIG;
 public class TicTacToe {
 
     private int[][] board;
-    private int currentPlayer;
+    private int currentPlayer = 1;
     private int winner;
     private int turn;
     private boolean gameEnded;

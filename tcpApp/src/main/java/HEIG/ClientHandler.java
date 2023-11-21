@@ -34,6 +34,8 @@ public class ClientHandler implements Runnable {
             /**
              * The server is a TicTacToe game. Here we print a welcome message with the available commands. Write Tic Tac Toe in ascii art.
              */
+
+
             out.write("Server : Welcome to the Tic Tac Toe game!");
             out.newLine();
             out.write("Server : Here are the available commands :");
@@ -46,6 +48,9 @@ public class ClientHandler implements Runnable {
             out.write("Server : HELP : display this help message");
             out.newLine();
             out.write("Server : You are player " + game.getCurrentPlayer() + "!");
+            out.newLine();
+            out.write(EOT);
+            out.flush();
 
             String input;
 

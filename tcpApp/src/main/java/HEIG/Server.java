@@ -34,6 +34,7 @@ public class Server implements Runnable{
             while(activeThreads <= THREAD_POOL_SIZE){
                 Socket socket = serverSocket.accept();
                 System.out.println("Server : new client connected");
+
                 Thread clientThread = new Thread(new ClientHandler(socket, game));
                 clientThread.start();
                 activeThreads++;

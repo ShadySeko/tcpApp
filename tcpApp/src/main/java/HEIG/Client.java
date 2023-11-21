@@ -36,9 +36,13 @@ public class Client implements Runnable {
             //Here we implement the client loop:
 
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-            String input;
+            String input = inp.readLine();
+            System.out.println(input);
             String output;
-            System.out.println(inp.readLine());
+            while(!(input = inp.readLine()).equals(EOT)){
+                System.out.println(input);
+            }
+
             System.out.println("Server waiting for input:");
             while(!(input = userInput.readLine()).equals(EOT)){
                 outp.write(input);
