@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 public class Server implements Runnable{
 
     private int PORT = 1234; //default port
-    private int THREAD_POOL_SIZE = 0; //default number of threads
+    private int THREAD_POOL_SIZE = 2; //default number of threads
     private int SERVER_ID = 0; //default server id
 
     public Server(int port, int threads, int serverId){
@@ -29,16 +29,25 @@ public class Server implements Runnable{
             System.out.println("[Server: " + SERVER_ID + "] : listening on port " + PORT);
 
             TicTacToe game = new TicTacToe();
+            Thread[] players = new Thread[2];
 
             // Infinite loop, limited by the number of threads available in the pool
             while(activeThreads <= THREAD_POOL_SIZE){
                 Socket socket = serverSocket.accept();
                 System.out.println("Server : new client connected");
-
-                Thread clientThread = new Thread(new ClientHandler(socket, game));
-                clientThread.start();
+                players[activeThreads] = new Thread(new ClientHandler(socket, game, activeThreads + 1));
                 activeThreads++;
+                if(activeThreads == 1){
+                    System.out.println("Server : waiting for another player to connect");
+                }
+                else {
+                    System.out.println("Server : starting game");
+                    players[0].start();
+                    players[1].start();
+                    activeThreads = 0;
+                }
             }
+
             //If we manage to get out of the loop, it means the thread pool is full or an exception occurred
             System.out.println("Server : thread pool is full, refusing new connections");
             throw new IllegalArgumentException("Server : thread pool is full, refusing new connections");

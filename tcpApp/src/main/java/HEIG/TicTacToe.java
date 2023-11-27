@@ -13,7 +13,6 @@ public class TicTacToe {
 
     public TicTacToe() {
         board = new int[3][3];
-        currentPlayer = 1;
         winner = 0;
         turn = 0;
         gameEnded = false;
@@ -21,6 +20,10 @@ public class TicTacToe {
 
     public int getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public int getWinner() {
@@ -41,10 +44,6 @@ public class TicTacToe {
 
     public void play(int x, int y) {
         //Arg checks:
-        if (x < 0 || x > 2 || y < 0 || y > 2) {
-            System.out.println("Invalid coordinates, please try again.");
-            return;
-        }
 
         if (gameEnded) {
             return;
@@ -98,7 +97,6 @@ public class TicTacToe {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Player ").append(currentPlayer).append(" turn\n");
         for (int i = 0; i < 3; i++) {
             sb.append("|");
             for (int j = 0; j < 3; j++) {

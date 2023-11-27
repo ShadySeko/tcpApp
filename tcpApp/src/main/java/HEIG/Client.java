@@ -44,7 +44,7 @@ public class Client implements Runnable {
                 System.out.println(input);
             }
 
-
+            //System.out.println("Client : please enter a message to send to the server : ");
             while(!(input = userInput.readLine()).equals(EOT)){
                 outp.write(input);
                 outp.newLine(); //Add a newline to the end of the message
@@ -57,9 +57,14 @@ public class Client implements Runnable {
                     e.printStackTrace();
                 }
 
-                System.out.println("Client : received response from server : " + "\n" + ">");
+                System.out.println("Client : received response from server : ");
                 while(!(input = inp.readLine()).equals(EOT)){
-                    System.out.println(input);
+                    if(input.equals("SHUTDOWN")){
+                        System.out.println("Client disconnected from server. Shutting down session.");
+                        return;
+                    }else {
+                        System.out.println(input);
+                    }
                 }
 
             }
