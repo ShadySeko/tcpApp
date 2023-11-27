@@ -13,8 +13,8 @@ public class ClientHandler implements Runnable {
 
     private final String EOT = "\u0004"; //End of transmission character
 
-    private final TicTacToe game;
-    private int playerNumber;
+    private final TicTacToe game; //The shared game object
+    private int playerNumber; //The player number, either 1 or 2
 
     public ClientHandler(Socket socket, TicTacToe game, int playerNumber) {
         this.socket = socket;
@@ -34,10 +34,8 @@ public class ClientHandler implements Runnable {
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8));
         ) {
             /**
-             * The server is a TicTacToe game. Here we print a welcome message with the available commands. Write Tic Tac Toe in ascii art.
+             * The server is a TicTacToe game. Here we print a welcome message with the available commands.
              */
-
-
             out.write("Server : Welcome to the Tic Tac Toe game!");
             out.newLine();
             out.write("Server : Here are the available commands :");
@@ -56,9 +54,10 @@ public class ClientHandler implements Runnable {
             String input;
 
 
-            //TODO: Server logic here
+            //Here we implement the core loop
             while(true){
 
+                //if game is ended, send the game over message and return
                 if(game.isGameEnded()){
                     out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
                     out.newLine();
@@ -102,6 +101,7 @@ public class ClientHandler implements Runnable {
 
                 String[] inputArray = input.split(" ");
 
+                //Switch case to handle the different commands
                 switch(inputArray[0]){
                     case "PLAY":
                         if(inputArray.length != 3){
@@ -135,15 +135,19 @@ public class ClientHandler implements Runnable {
                         out.write(game.toString());
                         out.newLine();
                         out.flush();
+
+                        //switch player
                         if(playerNumber == 1){
                             game.setCurrentPlayer(2);
                         }else{
                             game.setCurrentPlayer(1);
                         }
                         break;
+
                     case "QUIT":
                         out.write("Server : closing connection, see you soon!");
                         out.newLine();
+                        //Send the termination command.
                         out.write("SHUTDOWN");
                         out.newLine();
                         out.flush();
@@ -192,17 +196,4 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void playerAlert(BufferedWriter out) throws IOException {
-        if(game.getCurrentPlayer() != this.playerNumber){
-            out.write("Server : waiting for other player to play, no commands active until opponent plays");
-            out.newLine();
-            out.write(EOT);
-        }else{
-            out.write("Server : your turn to play, please enter a command:");
-            out.newLine();
-            out.write(EOT);
-        }
-        out.newLine();
-        out.flush();
-    }
 }

@@ -42,6 +42,13 @@ public class TicTacToe {
         return board;
     }
 
+
+    /**
+     * Core method of the game, plays a move on the board at the given coordinates.
+     * also performs checks to see if the game is over etc.
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public void play(int x, int y) {
         //Arg checks:
 
@@ -70,6 +77,9 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * This method prints the game result to the console.
+     */
     private void gameEnd(){
         if(winner == 0){
             System.out.println("Game ended in a draw!");
@@ -80,6 +90,12 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * This method checks if the game is over.
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return true if the game is over, false otherwise
+     */
     private boolean checkWin(int x, int y) {
         return (board[x][0] == board[x][1] && board[x][0] == board[x][2])
                 || (board[0][y] == board[1][y] && board[0][y] == board[2][y])
@@ -87,6 +103,9 @@ public class TicTacToe {
                 || (x + y == 2 && board[0][2] == board[1][1] && board[0][2] == board[2][0]);
     }
 
+    /**
+     * This method resets the game.
+     */
     public void reset() {
         board = new int[3][3];
         currentPlayer = 1;
@@ -95,6 +114,10 @@ public class TicTacToe {
         gameEnded = false;
     }
 
+    /**
+     * This method returns a string representation of the game board, for visualization purposes.
+     * @return
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 3; i++) {
