@@ -42,7 +42,7 @@ public class ClientHandler implements Runnable {
             out.newLine();
             out.write("Server : Here are the available commands :");
             out.newLine();
-            out.write("Server : PLAY <x> <y> : play a move at the given coordinates");
+            out.write("Server : PLAY <x> <y> : play a move at the given coordinates, coordinates start in the top left corner at 0,0 and end in the bottom right corner at 2,2");
             out.newLine();
             out.write("Server : RESET : reset the game");
             out.write("Server : QUIT : quit the game");
@@ -59,6 +59,15 @@ public class ClientHandler implements Runnable {
             //TODO: Server logic here
             while(true){
 
+                if(game.isGameEnded()){
+                    out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
+                    out.newLine();
+                    out.write(EOT);
+                    out.newLine();
+                    out.flush();
+                    return;
+                }
+
                 //if current player is not the playerNumber, wait for the other player to play
                 if(game.getCurrentPlayer() != this.playerNumber){
                     out.write("WAITING FOR OTHER PLAYER TO PLAY ");
@@ -67,8 +76,17 @@ public class ClientHandler implements Runnable {
                     while(game.getCurrentPlayer() != this.playerNumber){
                         Thread.sleep(1000);
                     }
+
                     out.write(game.toString());
                     out.newLine();
+                    if(game.isGameEnded()){
+                        out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
+                        out.newLine();
+                        out.write(EOT);
+                        out.newLine();
+                        out.flush();
+                        return;
+                    }
                     out.flush();
                 }
 
@@ -81,14 +99,7 @@ public class ClientHandler implements Runnable {
                 input = in.readLine();
 
 
-                if(game.isGameEnded()){
-                    out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
-                    out.newLine();
-                    out.write(EOT);
-                    out.newLine();
-                    out.flush();
-                    break;
-                }
+
                 String[] inputArray = input.split(" ");
 
                 switch(inputArray[0]){
