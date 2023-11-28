@@ -44,6 +44,7 @@ public class ClientHandler implements Runnable {
             out.write("Server : PLAY <x> <y> : play a move at the given coordinates, coordinates start in the top left corner at 0,0 and end in the bottom right corner at 2,2");
             out.newLine();
             out.write("Server : RESET : reset the game");
+            out.newLine();
             out.write("Server : QUIT : quit the game");
             out.newLine();
             out.write("Server : HELP : display this help message");
