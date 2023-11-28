@@ -77,7 +77,7 @@ public class ClientHandler implements Runnable {
                     out.newLine();
                     out.flush();
                     while(game.getCurrentPlayer() != this.playerNumber){
-                        Thread.sleep(1000);
+
                     }
 
                     out.write(game.toString());
@@ -159,7 +159,6 @@ public class ClientHandler implements Runnable {
                         out.newLine();
                         out.write("Server : HELP : display this help message");
                         out.newLine();
-
                         out.flush();
                         break;
 
@@ -183,9 +182,7 @@ public class ClientHandler implements Runnable {
 
     } catch (IOException e) {
         System.out.println("Server : IO error " + e.getMessage());
-    } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    }
     }
 
 }
