@@ -1,3 +1,4 @@
+
 package HEIG;
 
 /**
@@ -115,8 +116,8 @@ public class TicTacToe {
     }
 
     /**
-     * This method returns a string representation of the game board, for visualization purposes.
-     * This will be sent to the client as visual representation of the game board.
+     * This method returns a string representation of the game board.
+     * Used for visualizing the game in the console.
      * @return
      */
     public String toString() {

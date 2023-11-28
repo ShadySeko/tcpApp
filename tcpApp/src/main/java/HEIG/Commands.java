@@ -53,6 +53,4 @@ public class Commands implements Callable<Integer> {
         int exitCode = new CommandLine(new Commands()).execute(args);
         System.exit(exitCode);
     }
-
-
 }
