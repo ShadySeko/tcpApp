@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 /**
  * This class modelizes our server object for our TCP application protocol.
+ * It can accept multiple clients and dispatch them to threads via ClientHandler objects.
  */
 public class Server implements Runnable{
 
@@ -45,13 +46,18 @@ public class Server implements Runnable{
                     players[0].start();
                     players[1].start();
                     activeThreads = 0;
+                    break;
                 }
             }
-
-            //If we manage to get out of the loop, it means the thread pool is full or an exception occurred
-            System.out.println("Server : thread pool is full, refusing new connections");
-            throw new IllegalArgumentException("Server : thread pool is full, refusing new connections");
-
+            while(true){
+                //If one of the threads died, we disconnect the other one and shut down the server
+                if(!players[0].isAlive() || !players[1].isAlive()){
+                    System.out.println("Server : one of the players disconnected, shutting down");
+                    players[0].interrupt();
+                    players[1].interrupt();
+                    return;
+                }
+            }
         } catch (IOException e) {
             System.out.println("Server : IO error " + e.getMessage());
         }

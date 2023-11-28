@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * This class modelizes a handler for clients of our multithreaded TCP application protocol.
+ * It corresponds to the server side handling of a single client among all that the server can handle.
  */
 public class ClientHandler implements Runnable {
 
@@ -57,6 +58,9 @@ public class ClientHandler implements Runnable {
             //Here we implement the core loop
             while(true){
 
+                boolean disconnected = false;
+
+
                 //if game is ended, send the game over message and return
                 if(game.isGameEnded()){
                     out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
@@ -69,7 +73,7 @@ public class ClientHandler implements Runnable {
 
                 //if current player is not the playerNumber, wait for the other player to play
                 if(game.getCurrentPlayer() != this.playerNumber){
-                    out.write("WAITING FOR OTHER PLAYER TO PLAY ");
+                    out.write("WAITING FOR OTHER PLAYER TO MAKE A MOVE ");
                     out.newLine();
                     out.flush();
                     while(game.getCurrentPlayer() != this.playerNumber){

@@ -116,6 +116,7 @@ public class TicTacToe {
 
     /**
      * This method returns a string representation of the game board, for visualization purposes.
+     * This will be sent to the client as visual representation of the game board.
      * @return
      */
     public String toString() {

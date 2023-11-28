@@ -35,10 +35,13 @@ public class Client implements Runnable {
 
             //Here we implement the client loop:
 
+            //Welcome message
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             String input = inp.readLine();
             System.out.println(input);
+
             String output;
+
 
             while(!(input = inp.readLine()).equals(EOT)){
                 System.out.println(input);
