@@ -77,7 +77,11 @@ public class ClientHandler implements Runnable {
                     out.newLine();
                     out.flush();
                     while(game.getCurrentPlayer() != this.playerNumber){
-
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     out.write(game.toString());
