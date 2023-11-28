@@ -37,9 +37,7 @@ public class Client implements Runnable {
 
             //Welcome message
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-            String input = inp.readLine();
-            System.out.println(input);
-
+            String input;
             String output;
 
 

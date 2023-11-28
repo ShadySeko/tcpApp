@@ -59,17 +59,16 @@ public class ClientHandler implements Runnable {
             //Here we implement the core loop
             while(true){
 
-                boolean disconnected = false;
+
 
 
                 //if game is ended, send the game over message and return
                 if(game.isGameEnded()){
                     out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
                     out.newLine();
-                    out.write(EOT);
-                    out.newLine();
+                    //out.write(EOT);
+                   // out.newLine();
                     out.flush();
-                    return;
                 }
 
                 //if current player is not the playerNumber, wait for the other player to play
@@ -86,10 +85,7 @@ public class ClientHandler implements Runnable {
                     if(game.isGameEnded()){
                         out.write("GAME OVER, PLAYER " + game.getWinner() + " WON!");
                         out.newLine();
-                        out.write(EOT);
-                        out.newLine();
                         out.flush();
-                        return;
                     }
                     out.flush();
                 }
@@ -112,21 +108,15 @@ public class ClientHandler implements Runnable {
                         if(inputArray.length != 3){
                             out.write("Server : invalid command, please try again.");
                             out.newLine();
-                            out.write(EOT);
-                            out.newLine();
                             out.flush();
                             break;
                         }else if(game.isGameEnded()){
                             out.write("Server : game is already over, please reset the game.");
                             out.newLine();
-                            out.write(EOT);
-                            out.newLine();
                             out.flush();
                             break;
                         }else if(Integer.parseInt(inputArray[1]) < 0 || Integer.parseInt(inputArray[1]) > 2 || Integer.parseInt(inputArray[2]) < 0 || Integer.parseInt(inputArray[2]) > 2){
                             out.write("Server : invalid move, please try again.");
-                            out.newLine();
-                            out.write(EOT);
                             out.newLine();
                             out.flush();
                             break;
@@ -169,8 +159,7 @@ public class ClientHandler implements Runnable {
                         out.newLine();
                         out.write("Server : HELP : display this help message");
                         out.newLine();
-                        out.write(EOT);
-                        out.newLine();
+
                         out.flush();
                         break;
 
@@ -178,16 +167,14 @@ public class ClientHandler implements Runnable {
                         game.reset();
                         out.write("Server : game reset");
                         out.newLine();
-                        out.write(EOT);
-                        out.newLine();
+
                         out.flush();
                         break;
 
                     default:
                         out.write("Server : invalid command, please try again.");
                         out.newLine();
-                        out.write(EOT);
-                        out.newLine();
+
                         out.flush();
                         break;
                 }
